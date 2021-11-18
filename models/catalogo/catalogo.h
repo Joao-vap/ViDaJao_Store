@@ -1,5 +1,4 @@
-/*tipo exportado*/
-typedef struct catalogo Catalogo;
-
-
-
+typedef struct catalogo{
+    Produto *produt;
+    struct catalogo *prox, *ant;
+} Catalogo;
