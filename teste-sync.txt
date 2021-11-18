@@ -1,2 +1,0 @@
-Só estou testando as sincronizações entre o GitHub e o VSCode :D
-~ Vitor, 10AM - 17/11/21.
