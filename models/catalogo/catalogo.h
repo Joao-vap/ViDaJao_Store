@@ -1,4 +1,4 @@
+/*tipo exportado*/
 typedef struct catalogo{
-    Produto *produt;
-    struct catalogo *prox, *ant;
+    Produto *prod_fim;
 } Catalogo;

@@ -3,8 +3,3 @@
 #include "lance.h"
 #include "produto.h"
 #include "catalogo.h"
-
-struct catalogo {
-    Produto *produt;
-    struct catalogo *prox, *ant;
-};
