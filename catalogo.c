@@ -32,15 +32,15 @@ void PrintarProdutos(Catalogo *C){
         Prateleira *p;
         p = C->prat_ini;
         while (p != NULL) {
-            printf(">>> Produto: \"%s\", Valor minimo para lance: R$ %f\n", p->produto->nome_prod, p->produto->valor_min);
-            PrintarLances(p);
+            printf(">>> Produto: \"%s\", Valor minimo para lance: R$ %d\n", p->produto->nome_prod, p->produto->valor_min);
+            PrintarLances(p->produto);
             p = p->prox;
         }
     }
 }
 
 /*Cadastrar um novo produto*/
-void CadastrarProduto(Catalogo *C, char nome_produt, float valor_min){
+void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
     /*aloca memoria para o novo produto*/
     Produto *pp;
     pp = (Produto*) malloc(sizeof(Produto));
@@ -57,12 +57,12 @@ void CadastrarProduto(Catalogo *C, char nome_produt, float valor_min){
 
     /*insere o novo produto na lista em ordem alfabetica*/
     if (C->prat_ini == NULL) {
-        C->prat_ini = pp;
-        C->prat_fim = pp;
+        C->prat_ini = prat;
+        C->prat_fim = prat;
     }
     else {
 
-        if (strcomp(C->prat_ini->produto->nome_prod, nome_produt) < 0)
+        if (strcmp(C->prat_ini->produto->nome_prod, nome_produt) < 0)
         {
             /*se aux for o primeiro da lista e a inserção for a esquerda*/
             prat->prox = C->prat_ini;
@@ -70,7 +70,7 @@ void CadastrarProduto(Catalogo *C, char nome_produt, float valor_min){
             C->prat_ini->ant = prat;
             C->prat_ini = prat;
         }
-        else if (strcomp(C->prat_fim->produto->nome_prod, nome_produt) > 0)
+        else if (strcmp(C->prat_fim->produto->nome_prod, nome_produt) > 0)
         {
             /*se aux for o ultimo da lista e a inserção for à direita*/
             prat->prox = NULL;
@@ -83,7 +83,7 @@ void CadastrarProduto(Catalogo *C, char nome_produt, float valor_min){
             aux = C->prat_ini;
 
             /*procura a posicao correta para inserir o novo produto*/
-            while (strcomp(aux->produto->nome_prod, nome_produt) > 0) {
+            while (strcmp(aux->produto->nome_prod, nome_produt) > 0) {
                 aux = aux->prox;
             }
 

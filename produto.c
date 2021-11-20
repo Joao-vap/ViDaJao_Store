@@ -8,7 +8,7 @@ void PrintarLances(Produto *P){
 
     /*percorre-se printando lance por lance*/
     while(aux != NULL){
-        printf("%i %i\n", aux->info->nome, aux->info->valor);
+        printf("%s %f\n", aux->info->nome, aux->info->valor);
         aux = aux->prox_lance;
     }
 
@@ -16,10 +16,10 @@ void PrintarLances(Produto *P){
 
 }
 
-void NovoLance(Produto *P, char pessoa, float valor_lancado, int *erro){
+void NovoLance(Produto *P, char *pessoa, float valor_lancado, int erro){
 
     if (valor_lancado < P->maior_lance->info->valor || valor_lancado < P->valor_min){
-        *erro = 1;
+        erro = 1;
         return;
     }
     
@@ -51,11 +51,11 @@ void NovoLance(Produto *P, char pessoa, float valor_lancado, int *erro){
     P->maior_lance = novo;
 
     /*tudo certo*/
-    *erro = 0;
+    erro = 0;
     return;
 }
 
-Produto* NovoProduto(char nome_produto, float valor_min){
+Produto* NovoProduto(char *nome_produto, float valor_min){
     /*aloca-se a memoria para o novo produto*/
     Produto *novo = (Produto *) malloc(sizeof(Produto));
 

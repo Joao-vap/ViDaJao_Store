@@ -1,1 +1,1 @@
-int main_fake(void);
+int main_real(void);

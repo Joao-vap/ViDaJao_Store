@@ -1,7 +1,7 @@
 /*cada nó do catálogo é uma 'prateleira'*/
-typedef struct prateleira {
+typedef struct prat {
     Produto *produto;
-    struct prateleira *prox,*ant;
+    struct prat *prox,*ant;
 } Prateleira;
 
 /*o catalogo mantém um nó inicial e final das prateleiras em estoque*/
@@ -13,7 +13,7 @@ typedef struct catalogo{
 Catalogo* NovoCatalogo(void);
 
 /*cria uma nova prateleira com produto no catálogo*/
-void CadastrarProduto(Catalogo *C, char nome_produt, float valor_min);
+void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min);
 
 /*escreve os produtos no catálogo*/
 void PrintarProdutos(Catalogo *C);
