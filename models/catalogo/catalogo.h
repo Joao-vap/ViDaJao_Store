@@ -13,7 +13,7 @@ typedef struct catalogo{
 Catalogo* NovoCatalogo(void);
 
 /*cria uma nova prateleira com produto no catálogo*/
-void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min);
+void CadastrarProduto(Catalogo *C, char nome_produt, float valor_min);
 
 /*escreve os produtos no catálogo*/
 void PrintarProdutos(Catalogo *C);
