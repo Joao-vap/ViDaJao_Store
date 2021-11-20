@@ -5,3 +5,7 @@
 #include "produto.h"
 #include "catalogo.h"
 #include "users.h"
+
+void SugestaoDeLances(void){
+    return;
+}
