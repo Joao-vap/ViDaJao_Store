@@ -55,6 +55,7 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
     if (C->prat_ini == NULL) {
         C->prat_ini = prat;
         C->prat_fim = prat;
+        printf("%s", "Produto cadastrado!\n");
     }
     else {
 
