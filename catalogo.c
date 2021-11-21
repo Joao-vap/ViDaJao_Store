@@ -16,9 +16,13 @@ void EncerrarCatalogo(Catalogo *C){
         Prateleira *p;
         p = C->prat_ini;
         while (p != NULL) {
-            printf("O vencedor do produto \"%s\" ",p->produto->nome_prod);
-            printf("eh \"%s\" ",p->produto->maior_lance->info->nome);
-            printf("Comprado por: R$ %f\n",p->produto->maior_lance->info->valor);
+            if (p->produto->maior_lance != NULL) {
+                printf("O vencedor do produto \"%s\" ",p->produto->nome_prod);
+                printf("eh \"%s\" ",p->produto->maior_lance->info->nome);
+                printf("Comprado por: R$ %f\n",p->produto->maior_lance->info->valor);
+            } else {
+                printf("O produto \"%s\" nao teve lances efetuados.\n",p->produto->nome_prod);
+            }
             p = p->prox;
         }
     }
@@ -130,7 +134,7 @@ Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
 void RemoverProduto(Catalogo *C, char *nome_prod){
 
     ProcurarProduto(C, nome_prod);
-    
+
 }
 
 void SugerirProduto(Catalogo *C){
