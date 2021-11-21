@@ -7,28 +7,29 @@
 int main(void)
 {
 
-    printf("Suas opcoes sao:\n");
-    printf("0) encerrar o programa\n");
-    printf("1) cadastrar um produto\n");
-    printf("2) listar produtos e lances\n");
-    printf("3) dar um lance\n");
-    printf("4) encerrar leilao\n");
+    printf("%s", "Suas opcoes sao:\n");
+    printf("%s", "0) encerrar o programa\n");
+    printf("%s", "1) cadastrar um produto\n");
+    printf("%s", "2) listar produtos e lances\n");
+    printf("%s", "3) dar um lance\n");
+    printf("%s", "4) encerrar leilao\n");
 
     Catalogo *leilao = NovoCatalogo();
 
     for (;;)
     {
         int entrada;
-        printf("\nO que deseja fazer?\n");
+        printf("%s", "\nO que deseja fazer?\n");
         scanf("%d", &entrada);
-        printf("\n");
+        printf("%s", "\n");
 
-        if (entrada == 0)
+        switch (entrada)
         {
+        case 0:
             for (;;)
             {
                 char saida;
-                printf("Tem certeza que deseja encerrar o programa? (y / n) ");
+                printf("%s", "Tem certeza que deseja encerrar o programa? (y / n) ");
                 scanf("%c", &saida);
                 if (saida == 'y')
                 {
@@ -40,58 +41,58 @@ int main(void)
                 }
             }
         LEAVE:
-            printf("Programa encerrado!\n");
+            EncerrarCatalogo(leilao);
+            exit(0);
             break;
         KEEP:
-            printf("\n");
-        }
+            printf("%s", "\n");
+            break;
 
-        else if (entrada == 1)
-        {
-            printf("Insira o nome do produto: ");
+        case 1:
+            printf("%s", "Insira o nome do produto: ");
             char nome_produto[50];
             scanf("%s", nome_produto);
 
             float valor_min;
-            printf("Insira o valor de lance inicial (valor minimo): ");
+            printf("%s", "Insira o valor de lance inicial (valor minimo): ");
             scanf("%f", &valor_min);
 
             CadastrarProduto(leilao, nome_produto, valor_min);
-            printf("Produto cadastrado!\n");
-        }
 
-        else if (entrada == 2)
-        {
+            printf("%s", "Produto cadastrado!\n");
+            break;
+
+        case 2:
             PrintarProdutos(leilao);
-        }
+            break;
 
-        else if (entrada == 3)
-        {
-            printf("Qual produto ?: ");
+        case 3:
+            printf("%s", "Qual produto ?: ");
             char nome_do_produto[50];
             scanf("%s", nome_do_produto);
 
-            printf("Insira seu nome: ");
-            char nome_pessoa[50];
-            scanf("%s", nome_pessoa);
-
-            printf("Qual valor a ser lancado ?: ");
+            printf("%s", "Qual valor a ser lancado ?: ");
             float valor_de_lance;
             scanf("%f", &valor_de_lance);
 
+            printf("%s", "Insira seu nome: ");
+            char nome_pessoa[50];
+            scanf("%s", nome_pessoa);
+
             int erro;
-            Prateleira *prod;
-            prod = leilao->prat_ini;
-            printf("nomes: %s e %s\n", prod->produto->nome_prod, nome_do_produto);
+            Prateleira *prat;
+
+            prat = leilao->prat_ini;
+            
             for (;;)
             {
-                if (prod == NULL)
+                if (prat == NULL)
                 {
                     erro = 1;
                     goto ERROS_LANCE;
                     break;
                 }
-                else if (strcmp(prod->produto->nome_prod, nome_do_produto))
+                else if (strcmp(prat->produto->nome_prod, nome_do_produto))
                 {
                     goto LANCAR;
                 }
@@ -100,53 +101,46 @@ int main(void)
                     erro = 2;
                     goto ERROS_LANCE;
                 }
-                prod = prod->prox;
-            }
-        LANCAR:
-            NovoLance(prod->produto, nome_pessoa, valor_de_lance, erro);
-        ERROS_LANCE:;
-            if (erro == 0)
-            {
-                printf("Lance efetuado!\n");
-            }
-            else if (erro == 3)
-            {
-                printf("Seu lance foi invalido!");
-                printf(" O valor lancado deve ser maior o minimo requisitado");
-                printf(" ou maior que o valor do ultimo lance.\n");
-            }
-            else if (erro == 1)
-            {
-                printf("Produto inexistente!\n");
-            }
-            else if (erro == 2)
-            {
-                printf("Erro de lancamento. Tente novamente.\n");
-            }
-        }
 
-        else if (entrada == 4)
-        {
+                prat = prat->prox;
+
+            }
+
+            LANCAR:
+                NovoLance(prat->produto, nome_pessoa, valor_de_lance, erro);
+
+            ERROS_LANCE:;
+                // if (erro == 0)
+                // {
+                //     printf("%s", "Lance efetuado!\n");
+                // }
+                // else if (erro == 3)
+                // {
+                //     printf("%s", "Seu lance foi invalido!");
+                //     printf("%s", " O valor lancado deve ser maior o minimo requisitado");
+                //     printf("%s", " ou maior que o valor do ultimo lance.\n");
+                // }
+                if (erro == 1)
+                {
+                    printf("%s", "Produto inexistente!\n");
+                }
+                else if (erro == 2)
+                {
+                    printf("%s", "Erro de lancamento. Tente novamente.\n");
+                }
+                else
+                {
+                    printf("%s", "Lance efetuado!\n");
+                }
+            break;
+
+        case 4:
             EncerrarCatalogo(leilao);
             break;
-        }
 
-        else if (entrada == 7)
-        {
-            char vento[50];
-            printf("insira uma palavra\n");
-            scanf("%s", vento);
-
-            char ar[50];
-            printf("insira uma palavra\n");
-            scanf("%s", ar);
-
-            printf("suas palavras: %s %s %i\n", vento, ar, strcmp(vento, ar));
-        }
-        else
-        {
-            printf("Opcao invalida!\n\n");
+        default:
+            printf("%s", "Opcao invalida.\n");
         }
     }
-    return 0;
 }
+

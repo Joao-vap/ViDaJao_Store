@@ -27,12 +27,13 @@ void EncerrarCatalogo(Catalogo *C){
 void PrintarProdutos(Catalogo *C){
     if (C->prat_ini == NULL){
         printf("=> Ainda nao ha produtos no leilao.\n");
+        return;
     }
     else {
         Prateleira *p;
         p = C->prat_ini;
         while (p != NULL) {
-            printf(">>> Produto: \"%s\", Valor minimo para lance: R$ %d\n", p->produto->nome_prod, p->produto->valor_min);
+            printf(">>> Produto: \"%s\", Lance inical: R$ %d\n", p->produto->nome_prod, p->produto->valor_min);
             PrintarLances(p->produto);
             p = p->prox;
         }
@@ -42,16 +43,11 @@ void PrintarProdutos(Catalogo *C){
 /*Cadastrar um novo produto*/
 void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
     /*aloca memoria para o novo produto*/
+
     Produto *pp;
-    pp = (Produto*) malloc(sizeof(Produto));
+    pp = NovoProduto(nome_produt, valor_min);
     Prateleira *prat;
     prat = (Prateleira*) malloc(sizeof(Prateleira));
-
-    /*atribui os valores ao novo produto*/
-    pp->maior_lance = NULL;
-    pp->menor_lance = NULL;
-    pp->valor_min = valor_min;
-    pp->nome_prod = nome_produt;
 
     prat->produto = pp;
 
