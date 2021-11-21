@@ -5,7 +5,7 @@
 void PrintarLances(Produto *P)
 {
 
-    Lance *aux = P->maior_lance;
+    Lance *aux = P->menor_lance;
 
     /*percorre-se printando lance por lance*/
     while (aux != NULL)

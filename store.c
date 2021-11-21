@@ -75,9 +75,17 @@ int main(void)
             float valor_de_lance;
             scanf("%f", &valor_de_lance);
 
-            printf("%s", "Insira seu nome: ");
+            printf("%s\n", leilao->prat_ini->produto->nome_prod);
             char nome_pessoa[50];
+            char abacaxi[50];
+            printf("%s", "Insira seu nome: ");
             scanf("%s", nome_pessoa);
+            printf("%s", "Insira seu var: ");
+            scanf("%s", abacaxi);
+
+            // printf("%s\n", nome_pessoa);
+            // printf("%s\n", variavel_auxiliar);
+            printf("%s\n", leilao->prat_ini->produto->nome_prod);
 
             int erro;
             Prateleira *prat;
