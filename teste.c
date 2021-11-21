@@ -11,29 +11,33 @@ int main(void)
     {
 
         CadastrarProduto(L, "aa", 50);
-        CadastrarProduto(L, "aa", 120);
+        CadastrarProduto(L, "bb", 120);
 
         int erro;
         Prateleira *p;
+        p = p->prox;
+
+        NovoLance(p->produto, "lucas", 799);
+        NovoLance(p->produto, "joao", 800);
         p = L->prat_ini;
-        NovoLance(p->produto, "vitor", 1000, erro);
-        NovoLance(p->produto, "camila", 1099, erro);
+        NovoLance(p->produto, "vitor", 1000);
+        NovoLance(p->produto, "camila", 1099);
 
         PrintarLances(p->produto);
 
         p = p->prox;
 
-        NovoLance(p->produto, "lucas", 799, erro);
-        NovoLance(p->produto, "joao", 800, erro);
+        NovoLance(p->produto, "lucas", 799);
+        NovoLance(p->produto, "joao", 800);
 
         PrintarLances(p->produto);
 
         CadastrarProduto(L, "Kit RaspberryPi 3.0", 450);
 
         // p = p->prox;
-        NovoLance(p->produto, "ale", 3099, erro);
-        NovoLance(p->produto, "nic", 3000, erro);
-        NovoLance(p->produto, "igor", 3100, erro);
+        NovoLance(p->produto, "ale", 3099);
+        NovoLance(p->produto, "nic", 3000);
+        NovoLance(p->produto, "igor", 3100);
 
         PrintarLances(p->produto);
 
@@ -54,3 +58,5 @@ int main(void)
 
     return 0;
 }
+
+

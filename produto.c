@@ -17,22 +17,20 @@ void PrintarLances(Produto *P)
     return;
 }
 
-void NovoLance(Produto *P, char *pessoa, float valor_lancado, int erro)
+int NovoLance(Produto *P, char *pessoa, float valor_lancado)
 {
 
     if (P->maior_lance != NULL)
     {
-        if (valor_lancado < P->maior_lance->info->valor)
+        if (valor_lancado <= P->maior_lance->info->valor)
         {
-            erro = 1;
-            return;
+            return 1;
         }
     }
 
     if (valor_lancado < P->valor_min)
     {
-        erro = 2;
-        return;
+        return 2;
     }
 
     /*aloca-se a memoria para o novo lance*/
@@ -65,8 +63,7 @@ void NovoLance(Produto *P, char *pessoa, float valor_lancado, int erro)
     P->maior_lance = novo;
 
     /*tudo certo*/
-    erro = 0;
-    return;
+    return 0;
 }
 
 Produto *NovoProduto(char *nome_produto, float valor_min)
@@ -82,3 +79,4 @@ Produto *NovoProduto(char *nome_produto, float valor_min)
 
     return novo;
 }
+

@@ -20,3 +20,6 @@ void PrintarProdutos(Catalogo *C);
 
 /*encerra o catálogo*/
 void EncerrarCatalogo(Catalogo *C);
+
+/*procura um produto no catálogo*/
+Produto* ProcurarProduto(Catalogo *C, char *nome_produt);

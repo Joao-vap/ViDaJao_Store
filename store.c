@@ -43,7 +43,6 @@ int main(void)
         LEAVE:
             EncerrarCatalogo(leilao);
             exit(0);
-            break;
         KEEP:
             printf("%s", "\n");
             break;
@@ -52,14 +51,16 @@ int main(void)
             printf("%s", "Insira o nome do produto: ");
             char nome_produto[50];
             scanf("%s", nome_produto);
+            //testar-> char *nome_produto = (char*)malloc(50*sizeof(char));
+
 
             float valor_min;
             printf("%s", "Insira o valor de lance inicial (valor minimo): ");
             scanf("%f", &valor_min);
 
             CadastrarProduto(leilao, nome_produto, valor_min);
+            //testar-> free(nome_produto);
 
-            printf("%s", "Produto cadastrado!\n");
             break;
 
         case 2:
@@ -75,76 +76,38 @@ int main(void)
             float valor_de_lance;
             scanf("%f", &valor_de_lance);
 
-            printf("%s\n", leilao->prat_ini->produto->nome_prod);
-            char nome_pessoa[50];
-            char abacaxi[50];
             printf("%s", "Insira seu nome: ");
+            char nome_pessoa[50];
             scanf("%s", nome_pessoa);
-            printf("%s", "Insira seu var: ");
-            scanf("%s", abacaxi);
 
-            // printf("%s\n", nome_pessoa);
-            // printf("%s\n", variavel_auxiliar);
-            printf("%s\n", leilao->prat_ini->produto->nome_prod);
-
-            int erro;
-            Prateleira *prat;
-
-            prat = leilao->prat_ini;
-            
-            for (;;)
+            if (ProcurarProduto(leilao, nome_do_produto) == NULL)
             {
-                if (prat == NULL)
-                {
-                    erro = 1;
-                    goto ERROS_LANCE;
-                    break;
-                }
-                else if (strcmp(prat->produto->nome_prod, nome_do_produto))
-                {
-                    goto LANCAR;
-                }
-                else
-                {
-                    erro = 2;
-                    goto ERROS_LANCE;
-                }
+                printf("%s", "Produto nao encontrado.\n");
+                break;
+            }
+ 
+            int status;
+            /*0-> tudo certo    1->valor abaixo do lance atua   2->valor abaixo do minimo*/
+            status = NovoLance(ProcurarProduto(leilao, nome_do_produto), nome_pessoa, valor_de_lance);
 
-                prat = prat->prox;
-
+            if (status == 0)
+            {
+                printf("%s", "Lance efetuado!.\n");
+            }
+            else if (status == 1)
+            {
+                printf("%s", "Valor de lance abaixo do lance atual.\n");
+            }
+            else if (status == 2)
+            {
+                printf("%s", "Valor de lance abaixo do minimo.\n");
             }
 
-            LANCAR:
-                NovoLance(prat->produto, nome_pessoa, valor_de_lance, erro);
-
-            ERROS_LANCE:;
-                // if (erro == 0)
-                // {
-                //     printf("%s", "Lance efetuado!\n");
-                // }
-                // else if (erro == 3)
-                // {
-                //     printf("%s", "Seu lance foi invalido!");
-                //     printf("%s", " O valor lancado deve ser maior o minimo requisitado");
-                //     printf("%s", " ou maior que o valor do ultimo lance.\n");
-                // }
-                if (erro == 1)
-                {
-                    printf("%s", "Produto inexistente!\n");
-                }
-                else if (erro == 2)
-                {
-                    printf("%s", "Erro de lancamento. Tente novamente.\n");
-                }
-                else
-                {
-                    printf("%s", "Lance efetuado!\n");
-                }
             break;
 
         case 4:
             EncerrarCatalogo(leilao);
-            break;
+            return 0;
 
         default:
             printf("%s", "Opcao invalida.\n");

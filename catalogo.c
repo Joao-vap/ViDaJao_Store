@@ -65,6 +65,7 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->ant = NULL;
             C->prat_ini->ant = prat;
             C->prat_ini = prat;
+            printf("%s", "Produto cadastrado!\n");
         }
         else if (strcmp(C->prat_fim->produto->nome_prod, nome_produt) > 0)
         {
@@ -72,6 +73,14 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->prox = NULL;
             prat->ant = C->prat_fim;
             C->prat_fim->prox = prat;
+            printf("%s", "Produto cadastrado!\n");
+        }
+        else if (strcmp(C->prat_ini->produto->nome_prod, nome_produt) == 0)
+        {
+            /*se tiverem nomes iguais*/
+            printf("Produto ja cadastrado.\n");
+            free(prat);
+            return;
         }
         else
         {
@@ -87,6 +96,8 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->ant = aux->ant;
             aux->ant->prox = prat;
             aux->ant = prat;
+            
+            printf("%s", "Produto cadastrado!\n");
         }
     }
 }
@@ -101,4 +112,16 @@ Catalogo* NovoCatalogo(void){
     C->prat_ini = NULL;
     C->prat_fim = NULL;
     return C;
+}
+
+Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
+    Prateleira *aux;
+    aux = C->prat_ini;
+    while (aux != NULL) {
+        if (strcmp(aux->produto->nome_prod, nome_prod) == 0) {
+            return aux->produto;
+        }
+        aux = aux->prox;
+    }
+    return NULL;
 }

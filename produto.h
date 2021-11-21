@@ -21,7 +21,7 @@ typedef struct prod {
 Produto* NovoProduto(char *nome_produto, float valor_min);
 
 /*Cria um novo lance no produto, inserção em ordem de grandeza (menor->maior)*/
-void NovoLance(Produto *P, char *pessoa, float valor_lancado, int erro);
+int NovoLance(Produto *P, char *pessoa, float valor_lancado);
 
 /*Escreve os lances de um produto*/
 void PrintarLances(Produto *P);
