@@ -12,7 +12,8 @@ int main(void)
     printf("%s", "1) cadastrar um produto\n");
     printf("%s", "2) listar produtos e lances\n");
     printf("%s", "3) dar um lance\n");
-    printf("%s", "4) encerrar leilao\n");
+    printf("%s", "4) sugerir lances\n");
+    printf("%s", "5) encerrar leilao\n");
 
     Catalogo *leilao = NovoCatalogo();
 
@@ -52,7 +53,6 @@ int main(void)
             char nome_produto[50];
             scanf("%s", nome_produto);
             //testar-> char *nome_produto = (char*)malloc(50*sizeof(char));
-
 
             float valor_min;
             printf("%s", "Insira o valor de lance inicial (valor minimo): ");
@@ -106,6 +106,10 @@ int main(void)
             break;
 
         case 4:
+            SugerirProduto(leilao);
+            break;
+
+        case 5:
             EncerrarCatalogo(leilao);
             return 0;
 

@@ -126,3 +126,40 @@ Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
     }
     return NULL;
 }
+
+void RemoverProduto(Catalogo *C, char *nome_prod){
+
+    ProcurarProduto(C, nome_prod);
+    
+}
+
+void SugerirProduto(Catalogo *C){
+
+    Prateleira *auxProdutoExterno = C->prat_ini;
+
+    /*percorre a lista de produtos*/
+    while (auxProdutoExterno != NULL) {
+
+        Lance *auxLances = auxProdutoExterno->produto->menor_lance;
+        
+        /*percorre a lista de lances*/
+        while (auxLances != NULL) {
+
+            Prateleira *auxProdutoInterno = C->prat_ini;
+
+            /*percorre a lista de produtos para sugerir ao comprador*/
+            while (auxProdutoInterno != NULL) {
+
+                /*se o valor de um lance do usuario for maior que o o valor minimo de outro produto*/
+                if (auxProdutoInterno->produto->valor_min < auxLances->info->valor && auxProdutoInterno != auxProdutoExterno) {
+                    printf("O produto \"%s\" pode ser sugerido ao usuario \"%s\"\n", auxProdutoInterno->produto->nome_prod, auxLances->info->nome);
+                }
+
+                auxProdutoInterno = auxProdutoInterno->prox;
+            }
+            auxLances = auxLances->prox_lance;
+        }
+        auxProdutoExterno = auxProdutoExterno->prox;
+    }
+    return;
+}

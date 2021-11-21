@@ -1,6 +1,6 @@
 /*Estrutura para o lance dado em um produto*/
 typedef struct inf {
-    char *nome;
+    char nome[50];
     float valor;
 } Info;
 
@@ -12,7 +12,7 @@ typedef struct lan {
 
 /*Estrutura para o produto*/
 typedef struct prod {
-    char *nome_prod;
+    char nome_prod[50];
     int valor_min;
     Lance *maior_lance, *menor_lance;
 } Produto;

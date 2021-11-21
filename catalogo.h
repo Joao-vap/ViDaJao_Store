@@ -23,3 +23,9 @@ void EncerrarCatalogo(Catalogo *C);
 
 /*procura um produto no catálogo*/
 Produto* ProcurarProduto(Catalogo *C, char *nome_produt);
+
+/*remove um produto*/
+void RemoverProduto(Catalogo *C, char *nome_produt);
+
+/*Sugere um produto para o comprador*/
+void SugerirProduto(Catalogo *C);
