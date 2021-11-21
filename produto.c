@@ -2,6 +2,8 @@
 #include <stdio.h>  /* printf */
 #include "produto.h"
 
+/**/
+
 void PrintarLances(Produto *P)
 {
 
