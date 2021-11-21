@@ -1,65 +1,76 @@
 #include <stdlib.h> /* malloc, free, exit */
 #include <stdio.h> /* printf */
 #include "produto.h"
-#include "lance.h"
 
 void PrintarLances(Produto *P){
-    if (P->lance_high == NULL){
-        printf("=> Ainda nao ha lances para esse produto.\n");
+    if (P->maior_lance == NULL){
+        printf("=> Ainda nao ha produtos no leilao.\n");
     }
     else {
-        Lance *lanc;
-        lanc = P->lance_high;
-        while (lanc != NULL) {
-            printf(" ==> %s, R$ %f\n", lanc->pessoa, lanc->valor);
-            lanc = lanc->ant_lance;
+        Lance *aux;
+        aux = P->maior_lance; 
+        while (aux != NULL) {
+            printf("-> \"%s\", R$ %f\n", aux->info->nome, aux->info->valor);
+            aux = aux->ant_lance;
         }
     }
-    printf("\n");
 }
-
+// sim sim, é rascunho, só alterar interno das funcoes, Ou entao tu
+// passa erros e de acordo com erros vc printa os trem
 void NovoLance(Produto *P, char *pessoa, float valor_lancado, int erro){
-    Lance *lancar;
-    lancar = (Lance*) malloc(sizeof(Lance));
-    lancar->valor = valor_lancado;
-    /*
-    char *pessoa_copy;
-    strcpy(pessoa_copy, pessoa);
-    lancar->pessoa = pessoa_copy;
-    */
-    lancar->pessoa = pessoa;
-    
-    if (valor_lancado > P->lance_min){
-        if (P->lance_high == NULL) {
-            P->lance_high = lancar;
-            P->lance_high->prox_lance = NULL;
-            P->lance_high->ant_lance = NULL;
-            P->lance_min = valor_lancado;
-            erro = 0;
-        }
-        else {
-            if (lancar->valor >= P->lance_high->valor) {
-                P->lance_high->prox_lance = lancar;
-                P->lance_high->prox_lance->ant_lance = P->lance_high;
-                P->lance_high = P->lance_high->prox_lance;
-                P->lance_high->prox_lance = NULL;
-                P->lance_min = valor_lancado;
-                erro = 0;
+    if (P->maior_lance != NULL){
+        if (valor_lancado < P->maior_lance->info->valor){
+                 erro = 1;
+                 return;
+             }
+    }
+    if (valor_lancado < P->valor_min){
+                erro = 1;
+                return;
             }
-        }
+    
+    /*aloca-se a memoria para o novo lance*/
+    Lance *novo = (Lance *) malloc(sizeof(Lance));
+    novo->info = (Info *) malloc(sizeof(Info));
+    novo->info->nome = pessoa;
+    novo->info->valor = valor_lancado;
+
+    if (P->menor_lance == NULL)
+    {
+        /*se for o primeiro lance:*/
+        P->menor_lance = novo;
+        P->maior_lance = novo;
+        novo->prox_lance = NULL;
+        novo->ant_lance = NULL;
+
     }
-    else {
-        erro = 3;
+    else
+    {
+        /*atualizando os ponteiros de ordem*/
+        Lance *aux = P->maior_lance;
+
+        novo->ant_lance = aux;
+        novo->prox_lance = NULL;
+        aux->prox_lance = novo;
     }
+
+    /*atualizando o maior lance*/
+    P->maior_lance = novo;
+
+    /*tudo certo*/
+    erro = 0;
+    return;
 }
 
 Produto* NovoProduto(char *nome_produto, float valor_min){
-    Produto *P;
-    P = (Produto*) malloc(sizeof(Produto));
-    P->nome_prod = nome_produto;
-    P->lance_min = valor_min;
-    P->lance_high = NULL;
-    P->prox_prod = NULL;
-    P->ant_prod = NULL;
-    return P;
+    /*aloca-se a memoria para o novo produto*/
+    Produto *novo = (Produto *) malloc(sizeof(Produto));
+
+    /*atribuindo os valores*/
+    novo->nome_prod = nome_produto;
+    novo->valor_min = valor_min;
+    novo->maior_lance = NULL;
+    novo->menor_lance = NULL;
+    
+    return novo;
 }
