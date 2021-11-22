@@ -130,6 +130,7 @@ Catalogo* NovoCatalogo(void){
     return C;
 }
 
+/* funcao auxiliar para procurar e retornar um produto */
 Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
     Prateleira *aux;
     aux = C->prat_ini;
@@ -142,6 +143,7 @@ Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
     return NULL;
 }
 
+/* funcao basica do catalogo para remover produtos */
 void RemoverProduto(Catalogo *C, char *nome_prod){
 
     Prateleira *aux;
@@ -189,6 +191,7 @@ void RemoverProduto(Catalogo *C, char *nome_prod){
     return;
 }
 
+/* funcao do leilao para criar a sugestao de produtos */
 void SugerirProduto(Catalogo *C)
 {
     int flag = 1;
