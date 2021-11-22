@@ -1,13 +1,31 @@
-/*tipo exportado*/
+/*cada nó do catálogo é uma 'prateleira'*/
+typedef struct prat {
+    Produto *produto;
+    struct prat *prox,*ant;
+} Prateleira;
+
+/*o catalogo mantém um nó inicial e final das prateleiras em estoque*/
 typedef struct catalogo{
-    Produto *prod_fim;
-    Produto *prod_ini;
+    Prateleira *prat_fim, *prat_ini;
 } Catalogo;
 
-void EncerrarCatalogo(Catalogo *C);
+/*cria um catalogo*/
+Catalogo* NovoCatalogo(void);
 
-void PrintarProdutos(Catalogo *C);
-
+/*cria uma nova prateleira com produto no catálogo*/
 void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min);
 
-Catalogo* NovoCatalogo(void);
+/*escreve os produtos no catálogo*/
+void PrintarProdutos(Catalogo *C);
+
+/*encerra o catálogo*/
+void EncerrarCatalogo(Catalogo *C);
+
+/*procura um produto no catálogo*/
+Produto* ProcurarProduto(Catalogo *C, char *nome_produt);
+
+/*remove um produto*/
+void RemoverProduto(Catalogo *C, char *nome_produt);
+
+/*Sugere um produto para o comprador*/
+void SugerirProduto(Catalogo *C);

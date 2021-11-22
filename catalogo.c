@@ -70,4 +70,4 @@ Catalogo* NovoCatalogo(void){
     C->prod_ini = NULL;
     C->prod_fim = NULL;
     return C;
-}
+git pull}
