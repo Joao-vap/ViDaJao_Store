@@ -235,6 +235,7 @@ void RemoverProduto(Catalogo *C, char *nome_prod)
 void SugerirProduto(Catalogo *C)
 {
     printf("\n\n");
+    int flag = 1;
     Prateleira *auxProdutoExterno = C->prat_ini;
 
     /*percorre a lista de produtos*/
@@ -260,6 +261,7 @@ void SugerirProduto(Catalogo *C)
                     if (!ProcurarUsuario(auxProdutoInterno->produto, auxNos->nome))
                     {
                         printf("                                                                              \"%s\", que tal dar um lance em \"%s\"\n?", auxNos->nome, auxProdutoInterno->produto->nome_prod);
+                        flag = 0;
                     }
                 }
 
@@ -268,6 +270,10 @@ void SugerirProduto(Catalogo *C)
             auxNos = auxNos->prox;
         }
         auxProdutoExterno = auxProdutoExterno->prox;
+    }
+    if (flag)
+    {
+        printf("                                                                              Não há sugestões a fazer");
     }
     return;
 }
