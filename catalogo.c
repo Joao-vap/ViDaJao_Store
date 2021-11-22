@@ -193,7 +193,6 @@ void SugerirProduto(Catalogo *C)
 {
     int flag = 1;
     Prateleira *auxProdutoExterno = C->prat_ini;
-    char ultima_sugestao[50] = "1234567890123456789012345678901234567890123456789";
 
     /*percorre a lista de produtos*/
     while (auxProdutoExterno != NULL)
@@ -204,6 +203,7 @@ void SugerirProduto(Catalogo *C)
         while (auxNos != NULL)
         {
             Prateleira *auxProdutoInterno = C->prat_ini;
+            int first = 0;
 
             /*percorre a lista de produtos para sugerir ao comprador*/
             while (auxProdutoInterno != NULL)
@@ -215,10 +215,10 @@ void SugerirProduto(Catalogo *C)
                     /*se usuario não tiver feito lance no produto*/
                     if (ProcurarUsuario(auxProdutoInterno->produto, auxNos->nome) == 0)
                     {   
-                        if (strcmp(ultima_sugestao, auxNos->nome) != 0)
+                        if (!first)
                         {
-printf("                                                                             => \"%s\", que tal dar um lance em \"%s\"?\n", auxNos->nome, auxProdutoInterno->produto->nome_prod);
-                                strcpy(ultima_sugestao, auxNos->nome);
+                                printf("                                                                             => \"%s\", que tal dar um lance em \"%s\"?\n", auxNos->nome, auxProdutoInterno->produto->nome_prod);
+                                first++;
                         }
                         flag = 0;
                     }
@@ -232,7 +232,7 @@ printf("                                                                        
         auxProdutoExterno = auxProdutoExterno->prox;
     }
     if (flag){                                                                                                                                                                               
-printf("                     =                                                                Nao ha sugestoes no momento!                                                                   =\n");
+        printf("                     =                                                                Nao ha sugestoes no momento!                                                                   =\n");
     }
     PulaLinha();
     return;
