@@ -29,3 +29,5 @@ int NovoLance(Produto *P, char *pessoa, float valor_lancado);
 
 /*Escreve os lances de um produto*/
 void PrintarLances(Produto *P);
+
+int ProcurarUsuario(Produto *P, char *nome);
