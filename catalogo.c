@@ -5,7 +5,9 @@
 #include "catalogo.h"
 #include "usuario.h"
 
+/*Função para encerrar o catálogo*/
 void EncerrarCatalogo(Catalogo *C){
+    /*Verifica se o catálogo tem algum produto*/
     if (C->prat_ini == NULL){
         printf("                     =                                                           Opcao Selecionada: Encerrar Leilao                                                                  =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
@@ -18,7 +20,7 @@ void EncerrarCatalogo(Catalogo *C){
         printf("                     =                                                           Opcao Selecionada: Encerrar Leilao                                                                  =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
         printf("                     =                                                                   Leilao Encerrado!                                                                           =\n");
-        printf("                     =                                                   Nao haviam produtos cadastrados, nem lances efetuados.                                                      =\n");
+        printf("                     =                                                              Nao haviam lances efetuados.                                                      =\n");
         printf("                     =                                                        A equipe ViDaJao espera lhe rever em breve!                                                            =\n");
         printf("                     =================================================================================================================================================================\n");
     }

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "produto.h"
 #include "catalogo.h"
+#include "usuario.h"
 #include "funcAux.h"
 
 
@@ -118,16 +119,16 @@ int main(void)
             EncerrarCatalogo(leilao);
             return 0;
 
-        case 7:
+        case 7: ;
             char nome_do_prod[50];
-            Produto *p;
-            p = ProcurarProduto(L, nome_do_prod);
-            if (p == NULL){
-                printf
-            }
-            else{
+            Produto* p;
+            p = ProcurarProduto(leilao, nome_do_prod);
+            // if (p == NULL){
+            //     printf("");
+            // }
+            // else{
 
-            }
+            // }
 
         default:
             printf("                     =                                                                        Opcao invalida!                                                                        =\n");

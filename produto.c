@@ -4,9 +4,10 @@
 #include "produto.h"
 #include "usuario.h"
 
+/*Printar Lances*/
 void PrintarLances(Produto *P)
 {
-
+    
     Lance *aux = P->topo_lance;
 
     /*percorre-se printando lance por lance*/
@@ -18,16 +19,20 @@ void PrintarLances(Produto *P)
     return;
 }
 
+/*Criar lance*/
 int NovoLance(Produto *P, char *pessoa, float valor_lancado)
 {
+    /*Verifica se o produto tem lances*/
     if (P->topo_lance != NULL)
     {
+        /*se o lance for maior que o ultimo lance*/
         if (valor_lancado < P->topo_lance->info->valor)
         {
             return 1;
         }
     }
 
+    /*Verifica se o produto tem valor min maior que lance*/
     if (valor_lancado < P->valor_min)
     {
         return 2;
@@ -64,6 +69,7 @@ int NovoLance(Produto *P, char *pessoa, float valor_lancado)
             }
             else
             {
+                /*atualizando os ponteiros de ordem*/
                 novo->prox_lance = P->topo_lance->prox_lance;
                 P->topo_lance->prox_lance->ant_lance = novo;
                 P->topo_lance->prox_lance = novo;
@@ -103,8 +109,6 @@ Produto *NovoProduto(char *nome_produto, float valor_min)
     novo->usuarios = usuarios;
     novo->valor_min = valor_min;
     novo->topo_lance = NULL;
-    //novo->maior_lance = NULL;
-    //novo->menor_lance = NULL;
 
     return novo;
 }
