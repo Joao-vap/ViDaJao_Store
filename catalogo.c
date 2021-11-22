@@ -3,6 +3,7 @@
 #include <string.h> /* strcmp */
 #include "produto.h"
 #include "catalogo.h"
+#include "usuario.h"
 
 void EncerrarCatalogo(Catalogo *C){
     if (C->prat_ini == NULL){
@@ -47,9 +48,11 @@ void EncerrarCatalogo(Catalogo *C){
 void PrintarProdutos(Catalogo *C){
     if (C->prat_ini == NULL){
         printf("                     =                                                        Opcao Selecionada: Listar Produtos e Lances                                                            =\n");
+        printf("\n\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
         printf("                     =                                                            Nenhum produto foi cadastrado!                                                                     =\n");
         printf("                     =================================================================================================================================================================\n");
+        printf("\n\n");
         return;
     }
     else {
@@ -58,6 +61,7 @@ void PrintarProdutos(Catalogo *C){
         printf("                     =                                                        Opcao Selecionada: Listar Produtos e Lances                                                            =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
         while (p != NULL) {
+            printf("\n\n");
             printf("                                                                          >>> Produto: \"%s\", Lance inical: R$ %d\n", p->produto->nome_prod, p->produto->valor_min);
             PrintarLances(p->produto);
             p = p->prox;
@@ -80,7 +84,7 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
     if (C->prat_ini == NULL) {
         C->prat_ini = prat;
         C->prat_fim = prat;
-        printf("                     =                                                                     Produto cadastrado!                                                                       =\n");
+        printf("                     =                                                                  Produto cadastrado!                                                                          =\n");
     }
     else {
 
@@ -91,7 +95,7 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->ant = NULL;
             C->prat_ini->ant = prat;
             C->prat_ini = prat;
-            printf("                     =                                                                     Produto cadastrado!                                                                       =\n");
+            printf("                     =                                                                  Produto cadastrado!                                                                          =\n");
         }
         else if (strcmp(C->prat_fim->produto->nome_prod, nome_produt) > 0)
         {
@@ -99,7 +103,7 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->prox = NULL;
             prat->ant = C->prat_fim;
             C->prat_fim->prox = prat;
-            printf("                     =                                                                     Produto cadastrado!                                                                       =\n");
+            printf("                     =                                                                  Produto cadastrado!                                                                       =\n");
         }
         else if (strcmp(C->prat_ini->produto->nome_prod, nome_produt) == 0)
         {
@@ -122,7 +126,9 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->ant = aux->ant;
             aux->ant->prox = prat;
             aux->ant = prat;
+            printf("\n\n");
             printf("                     =                                                                     Produto cadastrado!                                                                       =\n");
+            printf("\n\n");
         }
     }
     printf("                     =================================================================================================================================================================\n");
