@@ -2,6 +2,7 @@
 #include <stdio.h>  /* printf */
 #include <string.h>
 #include "produto.h"
+#include "usuario.h"
 
 void PrintarLances(Produto *P)
 {
@@ -46,31 +47,45 @@ int NovoLance(Produto *P, char *pessoa, float valor_lancado)
         novo->ant_lance = NULL;
         /*atualizando o maior lance*/
         P->topo_lance = novo;
+        /*Adiciona o usurio*/
+        inserir_usuario(P->usuarios, pessoa);
 
     }
     else
     {   
         if (valor_lancado == P->topo_lance->info->valor){
+            
             /*atualizando os ponteiros de ordem*/
-            Lance *aux = P->topo_lance->prox_lance;
-            aux->ant_lance = novo;
-            novo->prox_lance = aux;
-            novo->ant_lance = P->topo_lance;
-            P->topo_lance->prox_lance = novo;
+            if (P->topo_lance->prox_lance == NULL)
+            {
+                P->topo_lance->prox_lance = novo;
+                novo->ant_lance = P->topo_lance;
+                novo->prox_lance = NULL;
+            }
+            else
+            {
+                novo->prox_lance = P->topo_lance->prox_lance;
+                P->topo_lance->prox_lance->ant_lance = novo;
+                P->topo_lance->prox_lance = novo;
+                novo->ant_lance = P->topo_lance;
+            }
+
+            /*Adiciona o usurio*/
+            inserir_usuario(P->usuarios, pessoa);
         }
         else 
         {
             /*atualizando os ponteiros de ordem*/
-            Lance *aux = P->topo_lance;
-            novo->ant_lance = aux;
-            novo->prox_lance = NULL;
-            aux->prox_lance = novo;
+            P->topo_lance->ant_lance = novo;
+            novo->prox_lance = P->topo_lance;
+            novo->ant_lance = NULL;
 
             /*atualizando o maior lance*/
-            P->topo_lance = novo;
-        }
-        
+            P->topo_lance = P->topo_lance->ant_lance;
 
+            /*Adiciona o usurio*/
+            inserir_usuario(P->usuarios, pessoa);
+        }
     }
 
     /*tudo certo*/
@@ -81,9 +96,11 @@ Produto *NovoProduto(char *nome_produto, float valor_min)
 {
     /*aloca-se a memoria para o novo produto*/
     Produto *novo = (Produto *)malloc(sizeof(Produto));
+    Usuarios *usuarios = (Usuarios *)malloc(sizeof(Usuarios));
 
     /*atribuindo os valores*/
     strcpy(novo->nome_prod, nome_produto);
+    novo->usuarios = usuarios;
     novo->valor_min = valor_min;
     novo->topo_lance = NULL;
     //novo->maior_lance = NULL;

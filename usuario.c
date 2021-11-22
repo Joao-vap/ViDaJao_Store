@@ -11,18 +11,18 @@ Usuarios* criar_usuarios_lista()
     return usuarios;
 }
 
-void inserir_usuario(Usuarios* user, char *nome){
+void inserir_usuario(Usuarios* users, char *nome){
 
     No *no = (No*) malloc(sizeof(No));
     strcpy(no->nome, nome);
 
-    if(user->primeiro == NULL){
-        user->primeiro = no;
-        user->retirar = no;
-        user->primeiro->prox = NULL;
+    if(users->primeiro == NULL){
+        users->primeiro = no;
+        users->retirar = no;
+        users->primeiro->prox = NULL;
     }
     else{
-        No *aux = user->primeiro;
+        No *aux = users->primeiro;
         while(aux->prox != NULL){
             aux = aux->prox;
         }
@@ -32,18 +32,18 @@ void inserir_usuario(Usuarios* user, char *nome){
 
 }
 
-char* retirar_usuario(Usuarios* user){
+char* retirar_usuario(Usuarios* users){
     
-    if(user->retirar == NULL){
+    if(users->retirar == NULL){
         return 0;
     }
     else{
-        No *aux = user->retirar;
-        if (user->retirar->prox == NULL){
-            user->retirar = user->primeiro;
+        No *aux = users->retirar;
+        if (users->retirar->prox == NULL){
+            users->retirar = users->primeiro;
         }
         else{
-            user->retirar = user->retirar->prox;
+            users->retirar = users->retirar->prox;
         }
         return aux->nome;
     }

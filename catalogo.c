@@ -103,12 +103,12 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             prat->prox = NULL;
             prat->ant = C->prat_fim;
             C->prat_fim->prox = prat;
-            printf("                     =                                                                  Produto cadastrado!                                                                       =\n");
+            printf("                     =                                                                  Produto cadastrado!                                                                          =\n");
         }
         else if (strcmp(C->prat_ini->produto->nome_prod, nome_produt) == 0)
         {
             /*se tiverem nomes iguais*/
-            printf("                     =                                                                    Produto ja cadastrado!                                                                     =\n");
+            printf("                     =                                                                 Produto ja cadastrado!                                                                        =\n");
             free(prat);
             return;
         }
@@ -127,7 +127,7 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             aux->ant->prox = prat;
             aux->ant = prat;
             printf("\n\n");
-            printf("                     =                                                                     Produto cadastrado!                                                                       =\n");
+            printf("                     =                                                                  Produto cadastrado!                                                                           =\n");
             printf("\n\n");
         }
     }

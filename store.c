@@ -22,6 +22,7 @@ int main(void)
         int entrada;
         
         /*Opções de ação na loja*/
+        printf("\n\n");
         entrada = PrintarOpcoes();
 
         /*Verificação da opção do usuário*/
@@ -33,12 +34,12 @@ int main(void)
             /*Ler o nome do produto*/
             printf("                     =                                                       Opcao Selecionada: Cadastrar um Produto                                                                 =\n");
             printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
-            printf(                                                                               "Insira o nome do produto: ");
+            printf("                                                                                 Insira o nome do produto: ");
             char nome_produto[50];
             scanf("%s", nome_produto);
 
             /*Ler o preço do produto*/
-            printf("                                                                    Insira o valor de lance inicial (valor minimo): ");
+            printf("                                                                        Insira o valor de lance inicial (valor minimo): ");
             float valor_min;
             scanf("%f", &valor_min);
 
@@ -52,6 +53,7 @@ int main(void)
             /*printar produtos e lances*/
             PrintarProdutos(leilao);
             break;
+
 
         case 3:
             /*cadastrar um lance*/
@@ -115,6 +117,17 @@ int main(void)
             /*encerrar o leilao*/
             EncerrarCatalogo(leilao);
             return 0;
+
+        case 7:
+            char nome_do_prod[50];
+            Produto *p;
+            p = ProcurarProduto(L, nome_do_prod);
+            if (p == NULL){
+                printf
+            }
+            else{
+
+            }
 
         default:
             printf("                     =                                                                        Opcao invalida!                                                                        =\n");

@@ -1,3 +1,5 @@
+#include "usuario.h"
+
 /*Estrutura para o lance dado em um produto*/
 typedef struct inf {
     char nome[50];
@@ -16,6 +18,7 @@ typedef struct prod {
     int valor_min;
     // Lance *maior_lance, *menor_lance;
     Lance *topo_lance;
+    Usuarios *usuarios;
 } Produto;
 
 /*Cria um novo produto*/
