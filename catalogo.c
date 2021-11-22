@@ -1,14 +1,16 @@
 #include <stdlib.h> /* malloc, free, exit */
-#include <stdio.h> /* printf */
+#include <stdio.h>  /* printf */
 #include <string.h> /* strcmp */
 #include "produto.h"
 #include "catalogo.h"
 #include "usuario.h"
 
 /*Função para encerrar o catálogo*/
-void EncerrarCatalogo(Catalogo *C){
+void EncerrarCatalogo(Catalogo *C)
+{
     /*Verifica se o catálogo tem algum produto*/
-    if (C->prat_ini == NULL){
+    if (C->prat_ini == NULL)
+    {
         printf("                     =                                                           Opcao Selecionada: Encerrar Leilao                                                                  =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
         printf("                     =                                                                   Leilao Encerrado!                                                                           =\n");
@@ -16,7 +18,8 @@ void EncerrarCatalogo(Catalogo *C){
         printf("                     =                                                        A equipe ViDaJao espera lhe rever em breve!                                                            =\n");
         printf("                     =================================================================================================================================================================\n");
     }
-    else if (C->prat_ini->produto->topo_lance == NULL){
+    else if (C->prat_ini->produto->topo_lance == NULL)
+    {
         printf("                     =                                                           Opcao Selecionada: Encerrar Leilao                                                                  =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
         printf("                     =                                                                   Leilao Encerrado!                                                                           =\n");
@@ -24,21 +27,26 @@ void EncerrarCatalogo(Catalogo *C){
         printf("                     =                                                        A equipe ViDaJao espera lhe rever em breve!                                                            =\n");
         printf("                     =================================================================================================================================================================\n");
     }
-    else {
+    else
+    {
         printf("                     =                                                           Opcao Selecionada: Encerrar Leilao                                                                  =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
         printf("                     =                                                                   Leilao Encerrado!                                                                           =\n");
         printf("                     =                                                             Confira os Produtos e Vencedores:                                                                 =\n");
         Prateleira *p;
         p = C->prat_ini;
-        while (p != NULL) {
-            if (p->produto->topo_lance != NULL) {
-                printf("                                              Vencedor do Produto \"%s\" :",p->produto->nome_prod);
-                printf("\"%s\" ",p->produto->topo_lance->info->nome);
+        while (p != NULL)
+        {
+            if (p->produto->topo_lance != NULL)
+            {
+                printf("                                              Vencedor do Produto \"%s\" :", p->produto->nome_prod);
+                printf("\"%s\" ", p->produto->topo_lance->info->nome);
                 printf("\n");
-                printf("                                                                    Comprado por: R$ %f\n",p->produto->topo_lance->info->valor);
-            } else {
-                printf("                                                            O produto \"%s\" nao teve lances efetuados.\n",p->produto->nome_prod);
+                printf("                                                                    Comprado por: R$ %f\n", p->produto->topo_lance->info->valor);
+            }
+            else
+            {
+                printf("                                                            O produto \"%s\" nao teve lances efetuados.\n", p->produto->nome_prod);
             }
             p = p->prox;
         }
@@ -47,8 +55,10 @@ void EncerrarCatalogo(Catalogo *C){
     }
 }
 
-void PrintarProdutos(Catalogo *C){
-    if (C->prat_ini == NULL){
+void PrintarProdutos(Catalogo *C)
+{
+    if (C->prat_ini == NULL)
+    {
         printf("                     =                                                        Opcao Selecionada: Listar Produtos e Lances                                                            =\n");
         printf("\n\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
@@ -57,12 +67,14 @@ void PrintarProdutos(Catalogo *C){
         printf("\n\n");
         return;
     }
-    else {
+    else
+    {
         Prateleira *p;
         p = C->prat_ini;
         printf("                     =                                                        Opcao Selecionada: Listar Produtos e Lances                                                            =\n");
         printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
-        while (p != NULL) {
+        while (p != NULL)
+        {
             printf("\n\n");
             printf("                                                                          >>> Produto: \"%s\", Lance inical: R$ %d\n", p->produto->nome_prod, p->produto->valor_min);
             PrintarLances(p->produto);
@@ -72,23 +84,26 @@ void PrintarProdutos(Catalogo *C){
 }
 
 /*Cadastrar um novo produto*/
-void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
+void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min)
+{
     /*aloca memoria para o novo produto*/
 
     Produto *pp;
     pp = NovoProduto(nome_produt, valor_min);
     Prateleira *prat;
-    prat = (Prateleira*) malloc(sizeof(Prateleira));
+    prat = (Prateleira *)malloc(sizeof(Prateleira));
 
     prat->produto = pp;
 
     /*insere o novo produto na lista em ordem alfabetica*/
-    if (C->prat_ini == NULL) {
+    if (C->prat_ini == NULL)
+    {
         C->prat_ini = prat;
         C->prat_fim = prat;
         printf("                     =                                                                  Produto cadastrado!                                                                          =\n");
     }
-    else {
+    else
+    {
 
         if (strcmp(C->prat_ini->produto->nome_prod, nome_produt) < 0)
         {
@@ -120,7 +135,8 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
             aux = C->prat_ini;
 
             /*procura a posicao correta para inserir o novo produto*/
-            while (strcmp(aux->produto->nome_prod, nome_produt) > 0) {
+            while (strcmp(aux->produto->nome_prod, nome_produt) > 0)
+            {
                 aux = aux->prox;
             }
 
@@ -137,10 +153,11 @@ void CadastrarProduto(Catalogo *C, char *nome_produt, float valor_min){
 }
 
 /*Criar novo Catalogo*/
-Catalogo* NovoCatalogo(void){
+Catalogo *NovoCatalogo(void)
+{
 
     /*aloca-se a memoria para o novo catalogo*/
-    Catalogo *C = (Catalogo*) malloc(sizeof(Catalogo));
+    Catalogo *C = (Catalogo *)malloc(sizeof(Catalogo));
 
     /*atribuindo os valores*/
     C->prat_ini = NULL;
@@ -148,11 +165,14 @@ Catalogo* NovoCatalogo(void){
     return C;
 }
 
-Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
+Produto *ProcurarProduto(Catalogo *C, char *nome_prod)
+{
     Prateleira *aux;
     aux = C->prat_ini;
-    while (aux != NULL) {
-        if (strcmp(aux->produto->nome_prod, nome_prod) == 0) {
+    while (aux != NULL)
+    {
+        if (strcmp(aux->produto->nome_prod, nome_prod) == 0)
+        {
             return aux->produto;
         }
         aux = aux->prox;
@@ -160,29 +180,35 @@ Produto* ProcurarProduto(Catalogo *C, char *nome_prod){
     return NULL;
 }
 
-void RemoverProduto(Catalogo *C, char *nome_prod){
+void RemoverProduto(Catalogo *C, char *nome_prod)
+{
 
     Prateleira *aux;
     aux = C->prat_ini;
 
     /*procura o produto a ser removido*/
-    while (aux != NULL) {
-        if (strcmp(aux->produto->nome_prod, nome_prod) == 0) {
+    while (aux != NULL)
+    {
+        if (strcmp(aux->produto->nome_prod, nome_prod) == 0)
+        {
             break;
         }
         aux = aux->prox;
     }
 
     /*se nao encontrou o produto*/
-    if (aux == NULL) {
+    if (aux == NULL)
+    {
         printf("Produto nao encontrado.\n");
         return;
     }
 
     /*se o produto for o primeiro da lista*/
-    if (aux == C->prat_ini) {
+    if (aux == C->prat_ini)
+    {
         C->prat_ini = aux->prox;
-        if (C->prat_ini != NULL) {
+        if (C->prat_ini != NULL)
+        {
             C->prat_ini->ant = NULL;
         }
         free(aux);
@@ -190,7 +216,8 @@ void RemoverProduto(Catalogo *C, char *nome_prod){
     }
 
     /*se o produto for o ultimo da lista*/
-    if (aux == C->prat_fim) {
+    if (aux == C->prat_fim)
+    {
         C->prat_fim = aux->ant;
         C->prat_fim->prox = NULL;
         free(aux);
@@ -205,32 +232,42 @@ void RemoverProduto(Catalogo *C, char *nome_prod){
     return;
 }
 
-void SugerirProduto(Catalogo *C){}
+void SugerirProduto(Catalogo *C)
+{
+    printf("\n\n");
+    Prateleira *auxProdutoExterno = C->prat_ini;
 
-//  Prateleira *auxProdutoExterno = C->prat_ini;
+    /*percorre a lista de produtos*/
+    while (auxProdutoExterno != NULL)
+    {
 
-//     /*percorre a lista de produtos*/
-//     while (auxProdutoExterno != NULL) {
+        No *auxNos = auxProdutoExterno->produto->usuarios->primeiro;
 
-//         Lance *auxLances = auxProdutoExterno->produto->menor_lance;
-        
-//         /*percorre a lista de lances*/
-//         while (auxLances != NULL) {
+        /*percorre a lista de lances*/
+        while (auxNos != NULL)
+        {
 
-//             Prateleira *auxProdutoInterno = C->prat_ini;
+            Prateleira *auxProdutoInterno = C->prat_ini;
 
-//             /*percorre a lista de produtos para sugerir ao comprador*/
-//             while (auxProdutoInterno != NULL) {
+            /*percorre a lista de produtos para sugerir ao comprador*/
+            while (auxProdutoInterno != NULL)
+            {
 
-//                 /*se o valor de um lance do usuario for maior que o o valor minimo de outro produto*/
-//                 if (auxProdutoInterno->produto->valor_min < auxLances->info->valor && auxProdutoInterno != auxProdutoExterno) {
-//                     printf("O produto \"%s\" pode ser sugerido ao usuario \"%s\"\n", auxProdutoInterno->produto->nome_prod, auxLances->info->nome);
-//                 }
+                /*se não for o mesmo produto*/
+                if (auxProdutoInterno != auxProdutoExterno)
+                {
+                    /*se usuario não tiver feito lance no produto*/
+                    if (!ProcurarUsuario(auxProdutoInterno->produto, auxNos->nome))
+                    {
+                        printf("                                                                              \"%s\", que tal dar um lance em \"%s\"\n?", auxNos->nome, auxProdutoInterno->produto->nome_prod);
+                    }
+                }
 
-//                 auxProdutoInterno = auxProdutoInterno->prox;
-//             }
-//             auxLances = auxLances->prox_lance;
-//         }
-//         auxProdutoExterno = auxProdutoExterno->prox;
-//     }
-//     return;
+                auxProdutoInterno = auxProdutoInterno->prox;
+            }
+            auxNos = auxNos->prox;
+        }
+        auxProdutoExterno = auxProdutoExterno->prox;
+    }
+    return;
+}

@@ -113,3 +113,19 @@ Produto *NovoProduto(char *nome_produto, float valor_min)
     return novo;
 }
 
+int ProcurarUsuario(Produto *P, char *nome_usuario)
+{
+    No *aux = P->usuarios->primeiro;
+
+    /*percorre-se a lista de usuarios*/
+    while (aux != NULL)
+    {
+        /*se o usuario for encontrado*/
+        if (strcmp(aux->nome, nome_usuario) == 0)
+        {
+            return 1;
+        }
+        aux = aux->prox;
+    }
+    return 0;
+}
