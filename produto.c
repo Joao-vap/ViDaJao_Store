@@ -6,24 +6,22 @@
 void PrintarLances(Produto *P)
 {
 
-    Lance *aux = P->menor_lance;
+    Lance *aux = P->topo_lance;
 
     /*percorre-se printando lance por lance*/
     while (aux != NULL)
     {
-        printf("%s %f\n", aux->info->nome, aux->info->valor);
+        printf("                                                                                      %s %f\n", aux->info->nome, aux->info->valor);
         aux = aux->prox_lance;
     }
-
     return;
 }
 
 int NovoLance(Produto *P, char *pessoa, float valor_lancado)
 {
-
-    if (P->maior_lance != NULL)
+    if (P->topo_lance != NULL)
     {
-        if (valor_lancado <= P->maior_lance->info->valor)
+        if (valor_lancado < P->topo_lance->info->valor)
         {
             return 1;
         }
@@ -40,28 +38,40 @@ int NovoLance(Produto *P, char *pessoa, float valor_lancado)
     strcpy(novo->info->nome, pessoa);
     novo->info->valor = valor_lancado;
 
-    if (P->menor_lance == NULL)
+    if (P->topo_lance == NULL)
     {
         /*se for o primeiro lance:*/
-        P->menor_lance = novo;
-        P->maior_lance = novo;
+        P->topo_lance = novo;
         novo->prox_lance = NULL;
         novo->ant_lance = NULL;
+        /*atualizando o maior lance*/
+        P->topo_lance = novo;
 
     }
     else
-    {
-        /*atualizando os ponteiros de ordem*/
-        Lance *aux = P->maior_lance;
+    {   
+        if (valor_lancado == P->topo_lance->info->valor){
+            /*atualizando os ponteiros de ordem*/
+            Lance *aux = P->topo_lance->prox_lance;
+            aux->ant_lance = novo;
+            novo->prox_lance = aux;
+            novo->ant_lance = P->topo_lance;
+            P->topo_lance->prox_lance = novo;
+        }
+        else 
+        {
+            /*atualizando os ponteiros de ordem*/
+            Lance *aux = P->topo_lance;
+            novo->ant_lance = aux;
+            novo->prox_lance = NULL;
+            aux->prox_lance = novo;
 
-        novo->ant_lance = aux;
-        novo->prox_lance = NULL;
-        aux->prox_lance = novo;
+            /*atualizando o maior lance*/
+            P->topo_lance = novo;
+        }
+        
 
     }
-
-    /*atualizando o maior lance*/
-    P->maior_lance = novo;
 
     /*tudo certo*/
     return 0;
@@ -75,8 +85,9 @@ Produto *NovoProduto(char *nome_produto, float valor_min)
     /*atribuindo os valores*/
     strcpy(novo->nome_prod, nome_produto);
     novo->valor_min = valor_min;
-    novo->maior_lance = NULL;
-    novo->menor_lance = NULL;
+    novo->topo_lance = NULL;
+    //novo->maior_lance = NULL;
+    //novo->menor_lance = NULL;
 
     return novo;
 }

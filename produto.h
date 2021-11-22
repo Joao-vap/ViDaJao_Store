@@ -14,7 +14,8 @@ typedef struct lan {
 typedef struct prod {
     char nome_prod[50];
     int valor_min;
-    Lance *maior_lance, *menor_lance;
+    // Lance *maior_lance, *menor_lance;
+    Lance *topo_lance;
 } Produto;
 
 /*Cria um novo produto*/

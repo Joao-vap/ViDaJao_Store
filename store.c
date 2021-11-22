@@ -3,118 +3,122 @@
 #include <string.h>
 #include "produto.h"
 #include "catalogo.h"
+#include "funcAux.h"
+
 
 int main(void)
 {
+    /*Header de boas vindas*/
+    Header();
 
-    printf("%s", "Suas opcoes sao:\n");
-    printf("%s", "0) encerrar o programa\n");
-    printf("%s", "1) cadastrar um produto\n");
-    printf("%s", "2) listar produtos e lances\n");
-    printf("%s", "3) dar um lance\n");
-    printf("%s", "4) sugerir lances\n");
-    printf("%s", "5) encerrar leilao\n");
-
+    /*Criação do catalogo*/
     Catalogo *leilao = NovoCatalogo();
 
+    /*loop principal*/
     for (;;)
     {
-        int entrada;
-        printf("%s", "\nO que deseja fazer?\n");
-        scanf("%d", &entrada);
-        printf("%s", "\n");
 
+        /*Ler a opção do usuário*/
+        int entrada;
+        
+        /*Opções de ação na loja*/
+        entrada = PrintarOpcoes();
+
+        /*Verificação da opção do usuário*/
         switch (entrada)
         {
-        case 0:
-            for (;;)
-            {
-                char saida;
-                printf("%s", "Tem certeza que deseja encerrar o programa? (y / n) ");
-                scanf("%c", &saida);
-                if (saida == 'y')
-                {
-                    goto LEAVE;
-                }
-                else if (saida == 'n')
-                {
-                    goto KEEP;
-                }
-            }
-        LEAVE:
-            EncerrarCatalogo(leilao);
-            exit(0);
-        KEEP:
-            printf("%s", "\n");
-            break;
-
         case 1:
-            printf("%s", "Insira o nome do produto: ");
+            /*Cadastrar um produto*/
+
+            /*Ler o nome do produto*/
+            printf("                     =                                                       Opcao Selecionada: Cadastrar um Produto                                                                 =\n");
+            printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
+            printf(                                                                               "Insira o nome do produto: ");
             char nome_produto[50];
             scanf("%s", nome_produto);
-            //testar-> char *nome_produto = (char*)malloc(50*sizeof(char));
 
+            /*Ler o preço do produto*/
+            printf("                                                                    Insira o valor de lance inicial (valor minimo): ");
             float valor_min;
-            printf("%s", "Insira o valor de lance inicial (valor minimo): ");
             scanf("%f", &valor_min);
 
+            /*Cadastrar o produto*/
             CadastrarProduto(leilao, nome_produto, valor_min);
-            //testar-> free(nome_produto);
+            printf("                     =================================================================================================================================================================\n");
 
             break;
 
         case 2:
+            /*printar produtos e lances*/
             PrintarProdutos(leilao);
             break;
 
         case 3:
-            printf("%s", "Qual produto ?: ");
+            /*cadastrar um lance*/
+            printf("                     =                                                            Opcao Selecionada: Dar um Lance                                                                    =\n");
+            printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
+            printf("                                                                                          Qual produto ?: ");
             char nome_do_produto[50];
             scanf("%s", nome_do_produto);
 
-            printf("%s", "Qual valor a ser lancado ?: ");
+            printf("                                                                                 Qual valor a ser lancado ?: ");
             float valor_de_lance;
             scanf("%f", &valor_de_lance);
 
-            printf("%s", "Insira seu nome: ");
+            printf("                                                                                        Insira seu nome: ");
             char nome_pessoa[50];
             scanf("%s", nome_pessoa);
 
             if (ProcurarProduto(leilao, nome_do_produto) == NULL)
             {
-                printf("%s", "Produto nao encontrado.\n");
+                printf("                     =                                                                 Produto nao encontrado!                                                                       =\n");
                 break;
             }
- 
+    
             int status;
             /*0-> tudo certo    1->valor abaixo do lance atua   2->valor abaixo do minimo*/
             status = NovoLance(ProcurarProduto(leilao, nome_do_produto), nome_pessoa, valor_de_lance);
 
             if (status == 0)
             {
-                printf("%s", "Lance efetuado!.\n");
+                printf("                                                                                         Lance efetuado!                                                                             =\n");
             }
             else if (status == 1)
             {
-                printf("%s", "Valor de lance abaixo do lance atual.\n");
+                printf("                                                                             Valor de lance abaixo do lance atual!                                                                   =\n");
             }
             else if (status == 2)
             {
-                printf("%s", "Valor de lance abaixo do minimo.\n");
+                printf(                     "=                                                        Valor de lance abaixo do minimo!                                                                       =\n");
             }
-
+            printf("                     =================================================================================================================================================================\n");
             break;
 
         case 4:
+            /*sugerir produtos*/
             SugerirProduto(leilao);
             break;
 
         case 5:
+            /*remover um produto*/
+            printf("                     =                                                         Opcao Selecionada: Remover um Produto                                                                 =\n");
+            printf("                     =---------------------------------------------------------------------------------------------------------------------------------------------------------------=\n");
+            printf("                                                                                Qual Produto Deseja remover?: ");
+            char produto[50];
+            scanf("%s", produto);
+
+            RemoverProduto(leilao, produto);
+            printf("                     =================================================================================================================================================================\n");
+            break;
+
+        case 6:
+            /*encerrar o leilao*/
             EncerrarCatalogo(leilao);
             return 0;
 
         default:
-            printf("%s", "Opcao invalida.\n");
+            printf("                     =                                                                        Opcao invalida!                                                                        =\n");
+            printf("                     =================================================================================================================================================================\n");
         }
     }
 }
